@@ -23,12 +23,14 @@ export interface BookSearchMeta {
   total_count: number;
 }
 
+export type BookSearchTarget = 'title' | 'person' | 'publisher';
+
 export interface BookSearchRequest {
   query: string;
   sort?: 'accuracy' | 'latest';
   page?: number;
   size?: number;
-  target?: 'title' | 'person' | 'publisher';
+  target?: BookSearchTarget;
 }
 
 export interface BookSearchResponse {

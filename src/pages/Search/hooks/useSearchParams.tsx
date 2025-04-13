@@ -8,7 +8,6 @@ interface SearchParamsState {
 
 type SearchParamsAction = {
   setSearchParams: (searchParams: BookSearchRequest) => void;
-  initializeSearchParams: () => void;
 };
 
 export const useSearchParamsStore = create<
@@ -18,5 +17,4 @@ export const useSearchParamsStore = create<
     query: '',
   },
   setSearchParams: (searchParams) => set({ searchParams }),
-  initializeSearchParams: () => set({ searchParams: { query: '' } }),
 }));
