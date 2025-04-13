@@ -23,15 +23,29 @@ export interface BookSearchMeta {
   total_count: number;
 }
 
+export interface BookSearchRequest {
+  query: string;
+  sort?: 'accuracy' | 'latest';
+  page?: number;
+  size?: number;
+  target?: 'title' | 'person' | 'publisher';
+}
+
 export interface BookSearchResponse {
   documents: Author[];
   meta: BookSearchMeta;
 }
 
 export const searchBookApi = {
-  get: async (query: string) => {
+  get: async (query: BookSearchRequest) => {
     const response = await ky(`${API_URL}/v3/search/book`, {
-      searchParams: { query },
+      searchParams: {
+        query: query.query,
+        sort: query.sort || 'accuracy',
+        page: query.page || 1,
+        size: query.size || 10,
+        target: query.target || '',
+      },
       headers: {
         Authorization: `KakaoAK ${API_KEY}`,
       },

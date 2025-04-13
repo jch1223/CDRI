@@ -4,25 +4,32 @@ import { CloseIcon } from '@/components/Icons/Close';
 import { SearchIcon } from '@/components/Icons/Search';
 import { AdornmentInput } from '@/components/ui/AdornmentInput';
 import { cn } from '@/lib/utils';
+import { useSearchHistoryStore } from '@/pages/Search/components/SearchInput/hooks/useSearchHistory';
+import { useSearchParamsStore } from '@/pages/Search/hooks/useSearchParams';
 
 interface SearchInputProps {
   className?: string;
-  onSearch: (query: string) => void;
 }
 
-export const SearchInput = ({ className, onSearch }: SearchInputProps) => {
+export const SearchInput = ({ className }: SearchInputProps) => {
+  const [viewQuery, setViewQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const [searchHistory, setSearchHistory] = useState<string[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
+
+  const setSearchParams = useSearchParamsStore(
+    (state) => state.setSearchParams
+  );
+
+  const searchHistory = useSearchHistoryStore((state) => state.searchHistory);
+  const addSearchHistory = useSearchHistoryStore(
+    (state) => state.addSearchHistory
+  );
+  const deleteSearchHistory = useSearchHistoryStore(
+    (state) => state.deleteSearchHistory
+  );
 
   const containerRef = useRef<HTMLFormElement>(null);
 
-  useEffect(() => {
-    const savedHistory = localStorage.getItem('searchHistory');
-    if (savedHistory) {
-      setSearchHistory(JSON.parse(savedHistory));
-    }
-  }, []);
+  const showSearchHistory = isFocused && searchHistory.length > 0;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -40,31 +47,19 @@ export const SearchInput = ({ className, onSearch }: SearchInputProps) => {
     };
   }, []);
 
-  const handleAddHistory = (query: string) => {
-    if (query.trim() === '') return;
-
-    const newHistory = [
-      query,
-      ...searchHistory.filter((item) => item !== query),
-    ].slice(0, 5);
-    setSearchHistory(newHistory);
-
-    localStorage.setItem('searchHistory', JSON.stringify(newHistory));
-  };
-
-  const handleSearch = (query: string) => {
-    onSearch(query);
-
+  const handleFocusOut = () => {
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
+
     setIsFocused(false);
   };
 
-  const handleDeleteHistory = (query: string) => {
-    const newHistory = searchHistory.filter((item) => item !== query);
-    setSearchHistory(newHistory);
-    localStorage.setItem('searchHistory', JSON.stringify(newHistory));
+  const handleSearch = (query: string) => {
+    setSearchParams({ query });
+    setViewQuery(query);
+    addSearchHistory(viewQuery);
+    handleFocusOut();
   };
 
   return (
@@ -74,22 +69,22 @@ export const SearchInput = ({ className, onSearch }: SearchInputProps) => {
       onSubmit={(e) => {
         e.preventDefault();
 
-        handleAddHistory(searchQuery);
-        handleSearch(searchQuery);
+        handleSearch(viewQuery);
       }}
     >
       <AdornmentInput
         containerClassName={cn(
           'rounded-full border-none bg-lightGray h-[50px]',
-          isFocused && 'rounded-b-none rounded-t-3xl bg-lightGray'
+          showSearchHistory && 'rounded-b-none rounded-t-3xl bg-lightGray'
         )}
+        value={viewQuery}
         startAdornment={<SearchIcon />}
         placeholder="검색어를 입력하세요"
         onFocus={() => setIsFocused(true)}
-        onChange={(e) => setSearchQuery(e.target.value)}
+        onChange={(e) => setViewQuery(e.target.value)}
       />
 
-      {isFocused && searchHistory.length > 0 && (
+      {showSearchHistory && (
         <div className="absolute left-0 right-0 top-full rounded-b-3xl bg-lightGray py-3 pl-10 pr-5">
           <ul>
             {searchHistory.map((query) => (
@@ -107,7 +102,7 @@ export const SearchInput = ({ className, onSearch }: SearchInputProps) => {
                 <button
                   type="button"
                   className="ml-2 flex items-center justify-center"
-                  onClick={() => handleDeleteHistory(query)}
+                  onClick={() => deleteSearchHistory(query)}
                   aria-label={`${query} 검색어 삭제`}
                 >
                   <CloseIcon />

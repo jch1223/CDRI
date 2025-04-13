@@ -2,14 +2,19 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { searchBookApi } from '@/pages/Search/api/searchBookApi';
 
+import type { BookSearchRequest } from '@/pages/Search/api/searchBookApi';
+
 const searchBookQueryKeys = {
   all: ['searchBook'],
-  list: (query: string) => [...searchBookQueryKeys.all, query],
+  list: (searchParams: BookSearchRequest) => [
+    ...searchBookQueryKeys.all,
+    searchParams,
+  ],
 };
 
-export const useGetSearchBookQuery = (query: string) => {
+export const useGetSearchBookQuery = (searchParams: BookSearchRequest) => {
   return useSuspenseQuery({
-    queryKey: [searchBookQueryKeys.list(query)],
-    queryFn: () => searchBookApi.get(query),
+    queryKey: [searchBookQueryKeys.list(searchParams)],
+    queryFn: () => searchBookApi.get(searchParams),
   });
 };

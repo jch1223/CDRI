@@ -5,18 +5,17 @@ import { BookList } from '@/pages/Search/components/BookList';
 import { DetailSearch } from '@/pages/Search/components/DetailSearch';
 import { EmptyContent } from '@/pages/Search/components/EmptyContent';
 import { SearchInput } from '@/pages/Search/components/SearchInput';
+import { useSearchParamsStore } from '@/pages/Search/hooks/useSearchParams';
 
 export const SearchPage = () => {
-  const handleSearch = (query: string) => {
-    console.log(`검색: ${query}`);
-  };
+  const searchParams = useSearchParamsStore((state) => state.searchParams);
 
   return (
     <div className="my-20">
       <h1 className="mb-4 text-typography-title text-h2-bold">도서 검색</h1>
 
       <div className="mb-6 flex items-center gap-4">
-        <SearchInput className="w-[480px]" onSearch={handleSearch} />
+        <SearchInput className="w-[480px]" />
         <DetailSearch />
       </div>
 
@@ -30,8 +29,8 @@ export const SearchPage = () => {
       <div className="flex flex-col gap-4">
         <ErrorBoundary fallback={<div>Error</div>}>
           <Suspense fallback={<div>Loading...</div>}>
-            {false ? (
-              <BookList />
+            {searchParams.query ? (
+              <BookList searchParams={searchParams} />
             ) : (
               <EmptyContent description="검색된 결과가 없습니다." />
             )}

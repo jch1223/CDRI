@@ -1,9 +1,13 @@
 import { useGetSearchBookQuery } from '@/pages/Search/api/hooks/useSearchBookQuery';
 
-export const BookList = () => {
-  const { data } = useGetSearchBookQuery('킵고잉');
+import type { BookSearchRequest } from '@/pages/Search/api/searchBookApi';
 
-  console.log(data);
+interface BookListProps {
+  searchParams: BookSearchRequest;
+}
 
-  return <div>SearchContent</div>;
+export const BookList = ({ searchParams }: BookListProps) => {
+  const { data } = useGetSearchBookQuery(searchParams);
+
+  return <div>{JSON.stringify(data)}</div>;
 };
