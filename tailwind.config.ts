@@ -1,26 +1,14 @@
-import { textTypes, fontWeights } from './src/styles/typography';
+import { colors } from './src/config/tailwind/colors';
+import { textTypes, fontWeights } from './src/config/tailwind/typography';
 
-import type { TextTypes, FontWeights } from './src/styles/typography';
+import type { TextTypes, FontWeights } from './src/config/tailwind/typography';
 
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
-      colors: {
-        typography: {
-          primary: '#353C49',
-          secondary: '#6D7582',
-          title: '#1A1E27',
-          subTitle: '#8D94A0',
-        },
-        primary: '#4880EE',
-        red: '#E84118',
-        gray: '#DADADA',
-        lightGray: '#F2F4F6',
-        white: '#FFFFFF',
-        black: '#222222',
-      },
+      colors,
       textTypes,
       fontWeights,
     },
