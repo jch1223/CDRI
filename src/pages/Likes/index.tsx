@@ -1,5 +1,3 @@
-import React from 'react';
-
-export const Likes = () => {
+export const LikesPage = () => {
   return <div>Likes</div>;
 };
