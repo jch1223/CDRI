@@ -6,10 +6,11 @@ import { AdornmentInput } from '@/components/ui/AdornmentInput';
 import { cn } from '@/lib/utils';
 
 interface SearchInputProps {
+  className?: string;
   onSearch: (query: string) => void;
 }
 
-export const SearchInput = ({ onSearch }: SearchInputProps) => {
+export const SearchInput = ({ className, onSearch }: SearchInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -68,7 +69,7 @@ export const SearchInput = ({ onSearch }: SearchInputProps) => {
 
   return (
     <form
-      className="relative"
+      className={cn('relative', className)}
       ref={containerRef}
       onSubmit={(e) => {
         e.preventDefault();
