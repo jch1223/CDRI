@@ -1,3 +1,7 @@
+import { Suspense } from 'react';
+
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import { BookList } from '@/pages/Search/components/BookList';
 import { DetailSearch } from '@/pages/Search/components/DetailSearch';
 import { EmptyContent } from '@/pages/Search/components/EmptyContent';
 import { SearchInput } from '@/pages/Search/components/SearchInput';
@@ -24,7 +28,15 @@ export const SearchPage = () => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <EmptyContent description="검색된 결과가 없습니다." />
+        <ErrorBoundary fallback={<div>Error</div>}>
+          <Suspense fallback={<div>Loading...</div>}>
+            {false ? (
+              <BookList />
+            ) : (
+              <EmptyContent description="검색된 결과가 없습니다." />
+            )}
+          </Suspense>
+        </ErrorBoundary>
       </div>
     </div>
   );
