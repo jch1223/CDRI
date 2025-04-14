@@ -1,6 +1,5 @@
 import { ChevronUp } from 'lucide-react';
 
-import { LineLikeIcon } from '@/assets/Icons/LineLike';
 import { Thumbnail } from '@/components/BookItem/Thumbnail';
 import { Button } from '@/components/ui/Button';
 
