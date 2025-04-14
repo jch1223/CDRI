@@ -22,13 +22,11 @@ export const SearchPage = () => {
 
       <ErrorBoundary fallback={<SearchResultsCount.Display count={0} />}>
         <Suspense fallback={<SearchResultsCount.Display count={0} />}>
-          <div className="mb-9 flex gap-4 text-[16px]/[24px] font-medium text-typography-primary">
-            {searchParams.query ? (
-              <SearchResultsCount query={searchParams.query} />
-            ) : (
-              <SearchResultsCount.Display count={0} />
-            )}
-          </div>
+          {searchParams.query ? (
+            <SearchResultsCount query={searchParams.query} />
+          ) : (
+            <SearchResultsCount.Display count={0} />
+          )}
         </Suspense>
       </ErrorBoundary>
 
