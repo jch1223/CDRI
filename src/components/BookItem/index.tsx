@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import { CollapsedBookItem } from '@/components/BookItem/CollapsedBookItem';
 import { ExpandedBookItem } from '@/components/BookItem/ExpandedBookItem';
-
 interface BookItemProps {
   isbn: string;
   title: string;
@@ -34,6 +33,7 @@ export const BookItem = ({
     <div className="border-b border-[#D2D6DA] pr-4">
       {isExpanded ? (
         <ExpandedBookItem
+          isbn={isbn}
           title={title}
           authors={authors}
           thumbnail={thumbnail}
@@ -45,11 +45,14 @@ export const BookItem = ({
         />
       ) : (
         <CollapsedBookItem
+          isbn={isbn}
           title={title}
           authors={authors}
           thumbnail={thumbnail}
+          contents={contents}
           sale_price={sale_price}
           url={url}
+          price={price}
           onClick={handleExpanded}
         />
       )}

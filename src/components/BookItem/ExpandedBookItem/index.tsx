@@ -1,9 +1,11 @@
 import { ChevronUp } from 'lucide-react';
 
 import { LineLikeIcon } from '@/assets/Icons/LineLike';
+import { Thumbnail } from '@/components/BookItem/Thumbnail';
 import { Button } from '@/components/ui/Button';
 
 interface ExpandedBookItemProps {
+  isbn: string;
   title: string;
   authors: string[];
   thumbnail: string;
@@ -15,6 +17,7 @@ interface ExpandedBookItemProps {
 }
 
 export const ExpandedBookItem = ({
+  isbn,
   title,
   authors,
   thumbnail,
@@ -26,17 +29,17 @@ export const ExpandedBookItem = ({
 }: ExpandedBookItemProps) => {
   return (
     <div className="flex pb-[38px] pt-[70px]">
-      <div className="relative ml-12 mr-8 flex-shrink-0">
-        <img
-          src={thumbnail}
-          alt={title}
-          className="h-[280px] w-[210px] rounded-sm object-cover"
-        />
-
-        <span className="absolute right-[10px] top-[10px]">
-          <LineLikeIcon />
-        </span>
-      </div>
+      <Thumbnail
+        size="lg"
+        isbn={isbn}
+        title={title}
+        authors={authors}
+        thumbnail={thumbnail}
+        sale_price={sale_price}
+        url={url}
+        contents={contents}
+        price={price}
+      />
 
       <div className="mr-[48px] flex flex-1 flex-col justify-end">
         <div className="mb-4 flex items-center gap-4">
