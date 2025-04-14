@@ -43,8 +43,10 @@ export const ExpandedBookItem = ({
 
       <div className="mr-[48px] flex flex-1 flex-col justify-end">
         <div className="mb-4 flex items-center gap-4">
-          <span className="text-typography-primary text-h3-bold">{title}</span>
-          <span className="text-typography-secondary text-b2-medium">
+          <span className="flex-[2] text-typography-primary text-h3-bold">
+            {title}
+          </span>
+          <span className="flex-[1] text-typography-secondary text-b2-medium">
             {authors.join(', ')}
           </span>
         </div>

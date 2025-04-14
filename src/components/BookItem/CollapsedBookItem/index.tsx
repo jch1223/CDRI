@@ -40,9 +40,11 @@ export const CollapsedBookItem = ({
         price={price}
       />
 
-      <div className="flex flex-1 items-center gap-4">
-        <span className="text-typography-primary text-h3-bold">{title}</span>
-        <span className="text-typography-secondary text-b2-medium">
+      <div className="mr-4 flex flex-1 items-center gap-4">
+        <span className="flex-[2] text-typography-primary text-h3-bold">
+          {title}
+        </span>
+        <span className="flex-[1] text-typography-secondary text-b2-medium">
           {authors.join(', ')}
         </span>
       </div>

@@ -58,13 +58,13 @@ export const SearchInput = ({ className }: SearchInputProps) => {
   const handleSearch = (query: string) => {
     setSearchParams({ query });
     setViewQuery(query);
-    addSearchHistory(viewQuery);
+    addSearchHistory(query);
     handleFocusOut();
   };
 
   return (
     <form
-      className={cn('relative', className)}
+      className={cn('relative z-10', className)}
       ref={containerRef}
       onSubmit={(e) => {
         e.preventDefault();
