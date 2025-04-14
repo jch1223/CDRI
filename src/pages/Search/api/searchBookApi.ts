@@ -2,7 +2,7 @@ import ky from 'ky';
 
 import { API_KEY, API_URL } from '@/config/api';
 
-export interface Author {
+export interface Book {
   authors: string[];
   contents: string;
   datetime: string;
@@ -34,7 +34,7 @@ export interface BookSearchRequest {
 }
 
 export interface BookSearchResponse {
-  documents: Author[];
+  documents: Book[];
   meta: BookSearchMeta;
 }
 

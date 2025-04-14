@@ -4,7 +4,7 @@ import { searchBookApi } from '@/pages/Search/api/searchBookApi';
 
 import type { BookSearchRequest } from '@/pages/Search/api/searchBookApi';
 
-const searchBookQueryKeys = {
+export const searchBookQueryKeys = {
   all: ['searchBook'],
   list: (searchParams: BookSearchRequest) => [
     ...searchBookQueryKeys.all,
@@ -14,7 +14,7 @@ const searchBookQueryKeys = {
 
 export const useGetSearchBookQuery = (searchParams: BookSearchRequest) => {
   return useSuspenseQuery({
-    queryKey: [searchBookQueryKeys.list(searchParams)],
+    queryKey: searchBookQueryKeys.list(searchParams),
     queryFn: () => searchBookApi.get(searchParams),
   });
 };
