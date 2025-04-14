@@ -1,8 +1,9 @@
 import { Suspense } from 'react';
 
-import { BookList } from '@/pages/Search/components/BookList';
+import { EmptyContent } from '@/components/EmptyContent';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { DetailSearch } from '@/pages/Search/components/DetailSearch';
-import { EmptyContent } from '@/pages/Search/components/EmptyContent';
+import { SearchBookList } from '@/pages/Search/components/SearchBookList';
 import { SearchInput } from '@/pages/Search/components/SearchInput';
 import { SearchResultsCount } from '@/pages/Search/components/SearchResultsCount';
 import { useSearchParamsStore } from '@/pages/Search/hooks/useSearchParams';
@@ -19,25 +20,29 @@ export const SearchPage = () => {
         <DetailSearch />
       </div>
 
-      <Suspense fallback={<SearchResultsCount.Display count={0} />}>
-        <div className="mb-9 flex gap-4 text-[16px]/[24px] font-medium text-typography-primary">
-          {searchParams.query ? (
-            <SearchResultsCount query={searchParams.query} />
-          ) : (
-            <SearchResultsCount.Display count={0} />
-          )}
-        </div>
-      </Suspense>
+      <ErrorBoundary fallback={<SearchResultsCount.Display count={0} />}>
+        <Suspense fallback={<SearchResultsCount.Display count={0} />}>
+          <div className="mb-9 flex gap-4 text-[16px]/[24px] font-medium text-typography-primary">
+            {searchParams.query ? (
+              <SearchResultsCount query={searchParams.query} />
+            ) : (
+              <SearchResultsCount.Display count={0} />
+            )}
+          </div>
+        </Suspense>
+      </ErrorBoundary>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className="flex flex-col gap-4">
-          {searchParams.query ? (
-            <BookList searchParams={searchParams} />
-          ) : (
-            <EmptyContent description="검색된 결과가 없습니다." />
-          )}
-        </div>
-      </Suspense>
+      <ErrorBoundary fallback={<div>Error</div>}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <div className="flex flex-col gap-4">
+            {searchParams.query ? (
+              <SearchBookList searchParams={searchParams} />
+            ) : (
+              <EmptyContent description="검색된 결과가 없습니다." />
+            )}
+          </div>
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 };

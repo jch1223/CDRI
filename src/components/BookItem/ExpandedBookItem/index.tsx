@@ -1,6 +1,6 @@
 import { ChevronUp } from 'lucide-react';
 
-import { LineLikeIcon } from '@/components/Icons/LineLike';
+import { LineLikeIcon } from '@/assets/Icons/LineLike';
 import { Button } from '@/components/ui/Button';
 
 interface ExpandedBookItemProps {

@@ -1,7 +1,7 @@
 import { ChevronDown } from 'lucide-react';
 
-import { FillLikeIcon } from '@/components/Icons/FillLike';
-import { LineLikeIcon } from '@/components/Icons/LineLike';
+import { FillLikeIcon } from '@/assets/Icons/FillLike';
+import { LineLikeIcon } from '@/assets/Icons/LineLike';
 import { Button } from '@/components/ui/Button';
 
 interface CollapsedBookItemProps {

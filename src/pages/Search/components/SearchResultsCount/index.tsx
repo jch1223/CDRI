@@ -1,3 +1,4 @@
+import { ResultCount } from '@/components/ResultCount';
 import { useGetSearchBookQuery } from '@/pages/Search/api/hooks/useSearchBookQuery';
 
 interface SearchResultsCountProps {
@@ -15,14 +16,7 @@ interface DisplayProps {
 }
 
 const Display = ({ count }: DisplayProps) => {
-  return (
-    <>
-      <span>도서 검색 결과</span>
-      <span>
-        총 <span className="text-primary">{count}</span>건
-      </span>
-    </>
-  );
+  return <ResultCount description="도서 검색 결과" count={count} />;
 };
 
 SearchResultsCount.Display = Display;

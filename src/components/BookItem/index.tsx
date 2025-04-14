@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
-import { CollapsedBookItem } from '@/pages/Search/components/BookList/components/CollapsedBookItem';
-import { ExpandedBookItem } from '@/pages/Search/components/BookList/components/ExpandedBookItem';
+import { CollapsedBookItem } from '@/components/BookItem/CollapsedBookItem';
+import { ExpandedBookItem } from '@/components/BookItem/ExpandedBookItem';
 
 interface BookItemProps {
+  isbn: string;
   title: string;
   authors: string[];
   thumbnail: string;
@@ -14,6 +15,7 @@ interface BookItemProps {
 }
 
 export const BookItem = ({
+  isbn,
   title,
   authors,
   thumbnail,

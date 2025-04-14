@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { toast } from 'sonner';
 
-import { CloseIcon } from '@/components/Icons/Close';
+import { CloseIcon } from '@/assets/Icons/Close';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import {

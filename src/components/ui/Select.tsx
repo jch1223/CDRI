@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 import * as SelectPrimitive from '@radix-ui/react-select';
 
-import { ChevronDown } from '@/components/Icons/ChevronDown';
+import { ChevronDown } from '@/assets/Icons/ChevronDown';
 import { cn } from '@/lib/utils';
 
 const Select = SelectPrimitive.Root;

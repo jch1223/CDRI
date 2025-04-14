@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
-import { CloseIcon } from '@/components/Icons/Close';
-import { SearchIcon } from '@/components/Icons/Search';
+import { CloseIcon } from '@/assets/Icons/Close';
+import { SearchIcon } from '@/assets/Icons/Search';
 import { AdornmentInput } from '@/components/ui/AdornmentInput';
 import { cn } from '@/lib/utils';
 import { useSearchHistoryStore } from '@/pages/Search/components/SearchInput/hooks/useSearchHistory';
